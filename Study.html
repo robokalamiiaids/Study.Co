@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Study Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f4f4;
+    }
+
+    .timer-container {
+      background: red;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #timer {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="timer-container">
+    <div id="timer">00:00</div>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="resetTimer()">Reset</button>
+  </div>
+
+  <script>
+    let seconds = 0;
+    let timerInterval = null;
+
+    function startTimer() {
+      if (timerInterval !== null) return;
+
+      timerInterval = setInterval(() => {
+        seconds++;
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      seconds = 0;
+      updateTimerDisplay();
+    }
+
+    function updateTimerDisplay() {
+      let minutes = Math.floor(seconds / 60);
+      let secs = seconds % 60;
+
+      let displayMinutes = minutes < 10 ? "0" + minutes : minutes;
+      let displaySeconds = secs < 10 ? "0" + secs : secs;
+
+      document.getElementById("timer").textContent =
+        displayMinutes + ":" + displaySeconds;
+    }
+  </script>
+
+</body>
+</html>
